@@ -49,7 +49,13 @@ ChromecastTech = {
       this._remotePlayer = this._chromecastSessionManager.getRemotePlayer();
       this._remotePlayerController = this._chromecastSessionManager.getRemotePlayerController();
       this._listenToPlayerControllerEvents();
-      this.on('dispose', this._removeAllEventListeners.bind(this));
+      this.on('dispose', () => {
+        this._removeAllEventListeners.bind(this); // might have broken this
+        var castSession = this._getCastSession();
+        if (castSession) {
+          castSession.endSession(true);
+        }
+      });
 
       this._hasPlayedAnyItem = false;
       this._requestTitle = options.requestTitleFn || _.noop;
