@@ -49,7 +49,7 @@ ChromecastTech = {
       this._remotePlayer = this._chromecastSessionManager.getRemotePlayer();
       this._remotePlayerController = this._chromecastSessionManager.getRemotePlayerController();
       this._listenToPlayerControllerEvents();
-      this.on('dispose', () => {
+      this.on('dispose', function() {
         this._removeAllEventListeners.bind(this); // might have broken this
         var castSession = this._getCastSession();
         if (castSession) {
